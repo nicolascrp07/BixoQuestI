@@ -20,6 +20,10 @@ public abstract class Personagem {
         this.local = local;
     }
 
+    public Local getLocalAtual() {
+        return local;
+    }
+
     public String getDialogo(String d){
         return d;
     }

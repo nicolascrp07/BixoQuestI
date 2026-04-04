@@ -17,6 +17,14 @@ public class Universidade extends Local { // Não precisa do caminho completo
         this.personagens = new ArrayList<>();
     }
 
+    public ArrayList<Personagem> getPersonagens() {
+        return personagens;
+    }
+
+    public ArrayList<Local> getLocais() {
+        return locais;
+    }
+
     @Override
     public void interagir(Jogador jogador) {
         jogador.setLocalAtual(this);

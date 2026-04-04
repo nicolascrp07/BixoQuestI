@@ -16,6 +16,7 @@ public class Jogador {
     private double desempenhoAcademico;
     private int pontosAtividade;
     private ArrayList<Disciplina> disciplinas;
+    private ArrayList<Disciplina> historicoAprovadas;
     private ArrayList<Quest> questsAtivas;
     private Local localAtual;
 
@@ -30,6 +31,7 @@ public class Jogador {
         this.pontosAtividade = pa;
         this.localAtual = l;
         this.disciplinas = new ArrayList<>();
+        this.historicoAprovadas = new ArrayList<>();
         this.questsAtivas = new ArrayList<>();
     }
 
@@ -105,6 +107,14 @@ public class Jogador {
         this.disciplinas = disciplinas;
     }
 
+    public ArrayList<Disciplina> getHistoricoAprovadas() {
+        return historicoAprovadas;
+    }
+
+    public void setHistoricoAprovadas(ArrayList<Disciplina> historicoAprovadas) {
+        this.historicoAprovadas = historicoAprovadas;
+    }
+
     public ArrayList<Quest> getQuestsAtivas() {
         return questsAtivas;
     }
@@ -127,5 +137,13 @@ public class Jogador {
 
     public void addDisciplina(Disciplina disciplina) {
         this.disciplinas.add(disciplina);
+    }
+
+    public void removeDisciplina(Disciplina disciplina) {
+        this.disciplinas.remove(disciplina);
+    }
+
+    public void addDisciplinaHistorico(Disciplina disciplina) {
+        this.historicoAprovadas.add(disciplina);
     }
 }
