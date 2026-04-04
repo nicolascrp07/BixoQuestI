@@ -10,5 +10,11 @@ public abstract class Local {
         this.nome = nome;
         this.descricao = descricao;
     }
-    public abstract void interagir(Jogador jogador);
+
+    public void interagir(Jogador jogador) {
+        jogador.setEnergia(jogador.getEnergia() - 5);
+        jogador.setLocalAtual(this);
+    }
+
+    public abstract void acaoEspecifica(Jogador jogador);
 }

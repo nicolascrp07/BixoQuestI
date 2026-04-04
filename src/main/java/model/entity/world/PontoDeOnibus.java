@@ -11,14 +11,12 @@ public class PontoDeOnibus extends Local {
         this.linha = linha;
     }
 
-    @Override
-    public void interagir(Jogador jogador) {
-        jogador.setEnergia(jogador.getEnergia() - 5);
-        jogador.setLocalAtual(this);
+    private void pegarOnibus(Jogador jogador){
+        jogador.setEnergia(100);
     }
 
-    public void pegarOnibus(Jogador jogador, Tempo tempo){
-        jogador.setEnergia(100);
-        tempo.avancarSemana();
+    @Override
+    public void acaoEspecifica(Jogador j){
+        this.pegarOnibus(j);
     }
 }

@@ -11,14 +11,13 @@ public class LEDS extends Local {
         this.disciplinaAtual = disciplinaAtual;
     }
 
-    @Override
-    public void interagir(Jogador jogador) {
-        jogador.setEnergia(jogador.getEnergia() - 5);
-        jogador.setLocalAtual(this);
-    }
-
-    public void realizarAulaPratica(Jogador jogador) {
+    private void realizarAulaPratica(Jogador jogador) {
         jogador.setNivelConhecimento(jogador.getNivelConhecimento() + 10);
         jogador.setEnergia(jogador.getEnergia() - 10);
+    }
+
+    @Override
+    public void acaoEspecifica(Jogador j){
+        this.realizarAulaPratica(j);
     }
 }

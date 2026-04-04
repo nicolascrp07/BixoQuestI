@@ -3,12 +3,11 @@ package main.java.model.entity.event;
 import main.java.model.entity.character.Jogador;
 import main.java.model.entity.game.Tempo;
 
-public class ProvaSurpresa extends Evento { // Limpo
+public class ProvaSurpresa extends Evento {
 
     public ProvaSurpresa() {
         super("Prova Surpresa", "O professor resolveu aplicar uma prova hoje!", 0.3);
 
-        // Tudo limpo aqui embaixo, sem os prefixos!
         Consequencia cEstudar = new Consequencia(-10, -5, 0, +5, 0, +10);
         Escolha estudar = new Escolha("Tentar responder com o que sabe", cEstudar);
 

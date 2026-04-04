@@ -19,21 +19,11 @@ public class Universidade extends Local { // Não precisa do caminho completo
 
     @Override
     public void interagir(Jogador jogador) {
-        jogador.setEnergia(jogador.getEnergia() - 5);
         jogador.setLocalAtual(this);
     }
 
-    public void atualizarLocal() {
-        for (Personagem p : personagens) {
-            if (p instanceof Colega || p instanceof Animal) {
-                Local localSorteado = null; // Limpo
-                // Abaixo também tirei os prefixos de Sala e LEDS
-                while (localSorteado == null || localSorteado instanceof Sala || localSorteado instanceof LEDS) {
-                    int indice = (int) (Math.random() * locais.size());
-                    localSorteado = locais.get(indice);
-                }
-                p.setLocal(localSorteado);
-            }
-        }
+    @Override
+    public void acaoEspecifica(Jogador jogador){
+        jogador.setLocalAtual(this);
     }
 }

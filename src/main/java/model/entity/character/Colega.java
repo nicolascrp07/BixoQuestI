@@ -1,8 +1,8 @@
 package main.java.model.entity.character;
 
-import main.java.model.entity.event.Quest;
-import main.java.model.entity.event.Recompensa;
+import main.java.model.entity.world.LEDS;
 import main.java.model.entity.world.Local;
+import main.java.model.entity.world.Sala;
 
 public class Colega extends Personagem {
     public Colega (String nome, Local local){
@@ -10,12 +10,16 @@ public class Colega extends Personagem {
     }
 
     @Override
-    public String getDialogo(String d){
-        return d;
+    public boolean podeAcessar(Local l){
+        return !(l instanceof Sala) && !(l instanceof LEDS);
+    }
+
+    private void fofocaAlheia(Jogador jogador) {
+        jogador.setMotivacao(jogador.getMotivacao() + 5);
     }
 
     @Override
-    public Quest getQuest(String n, Personagem o, String obj, Recompensa r, Boolean sc){
-        return new Quest(n, o, obj, r, sc);
+    public void interacaoEspecifica(Jogador jogador) {
+        this.fofocaAlheia(jogador);
     }
 }

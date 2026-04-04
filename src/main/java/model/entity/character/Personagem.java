@@ -20,6 +20,14 @@ public abstract class Personagem {
         this.local = local;
     }
 
-    public abstract String getDialogo(String dialogo);
-    public abstract Quest getQuest(String nome, Personagem origem, String objetivo, Recompensa recompensa, Boolean statusConcluida);
+    public String getDialogo(String d){
+        return d;
+    }
+
+    public Quest getQuest(String n, Personagem o, String obj, Recompensa r, Boolean sc){
+        return new Quest(n, o, obj, r, sc);
+    }
+
+    public abstract boolean podeAcessar(Local local);
+    public abstract void interacaoEspecifica(Jogador jogador);
 }

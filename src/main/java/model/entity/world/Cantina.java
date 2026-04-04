@@ -16,14 +16,13 @@ public class Cantina extends Local {
         this.valorLanche = valorLanche;
     }
 
-    @Override
-    public void interagir(Jogador jogador) {
-        jogador.setEnergia(jogador.getEnergia() - 5);
-        jogador.setLocalAtual(this);
-    }
-
-    public void comprarLanche(Jogador jogador) {
+    private void comprarLanche(Jogador jogador) {
         jogador.setDinheiro(jogador.getDinheiro() - valorLanche);
         jogador.setMotivacao(jogador.getMotivacao() + 15);
+    }
+
+    @Override
+    public void acaoEspecifica(Jogador j){
+        this.comprarLanche(j);
     }
 }
