@@ -9,7 +9,13 @@ import java.util.ArrayList;
 
 public class PartidaService {
     public void avancarSemana(Jogador j, Universidade uni, Tempo tempo, AcademicoService ac, ExplorarService ex, ArrayList<Disciplina> catalogo){
-       // preciso identificar a lógica com o ponto de ônibus
+        int semestreAnterior = tempo.getSemestreAtual();
+        tempo.avancarSemana();
+        ex.atualizarLocal(uni);
+        if (tempo.getSemestreAtual() > semestreAnterior) {
+            ac.fecharSemestre(j);
+            ac.matricularNovoSemestre(j, catalogo);
+        }
     }
 
     public boolean verificarFimDeJogo(Jogador j, int totalDisciplinasDoCurso){

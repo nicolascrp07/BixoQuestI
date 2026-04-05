@@ -1,8 +1,11 @@
 package main.java.model.service;
 
+import main.java.model.entity.academic.Disciplina;
 import main.java.model.entity.character.Jogador;
 import main.java.model.entity.character.Personagem;
+import main.java.model.entity.game.Tempo;
 import main.java.model.entity.world.Local;
+import main.java.model.entity.world.PontoDeOnibus;
 import main.java.model.entity.world.Universidade;
 
 import java.util.ArrayList;
@@ -15,9 +18,12 @@ public class ExplorarService {
         return false;
     }
 
-    public void interacaoAmbiente(Jogador j, Local l){
+    public void interacaoAmbiente(Jogador j, Local l, PartidaService ps, Tempo t, Universidade uni, AcademicoService ac, ArrayList<Disciplina> cat){
         l.interagir(j);
         l.acaoEspecifica(j);
+        if (l instanceof PontoDeOnibus) {
+            ps.avancarSemana(j, uni, t, ac, this, cat);
+        }
     }
 
     public void interacaoNPC (Jogador j, Personagem npc){
