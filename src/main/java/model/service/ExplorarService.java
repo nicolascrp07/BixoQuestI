@@ -18,9 +18,10 @@ public class ExplorarService {
         return false;
     }
 
-    public void interacaoAmbiente(Jogador j, Local l, PartidaService ps, Tempo t, Universidade uni, AcademicoService ac, ArrayList<Disciplina> cat){
+    public void interacaoAmbiente(Jogador j, Local l, PartidaService ps, Tempo t, Universidade uni, AcademicoService ac, ArrayList<Disciplina> cat, QuestService qs){
         l.interagir(j);
         l.acaoEspecifica(j);
+        qs.verificarAndamento(j);
         if (l instanceof PontoDeOnibus) {
             ps.avancarSemana(j, uni, t, ac, this, cat);
         }
