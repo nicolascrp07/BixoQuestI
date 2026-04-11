@@ -17,4 +17,6 @@ public abstract class Local {
     }
 
     public abstract void acaoEspecifica(Jogador jogador);
+
+    public String getNome(){ return nome; }
 }

@@ -1,16 +1,19 @@
 package main.java.model.service;
 
 import main.java.model.entity.academic.Disciplina;
-import main.java.model.entity.character.Jogador;
-import main.java.model.entity.character.Personagem;
+import main.java.model.entity.character.*;
 import main.java.model.entity.game.Tempo;
-import main.java.model.entity.world.Local;
-import main.java.model.entity.world.PontoDeOnibus;
-import main.java.model.entity.world.Universidade;
+import main.java.model.entity.world.*;
 
 import java.util.ArrayList;
 
 public class ExplorarService {
+    private QuestService questService;
+
+    public ExplorarService(AcademicoService ac, QuestService qs) {
+        this.questService = qs;
+    }
+
     public boolean podeTransitar(Jogador j, Local l){
         if (j.getLocalAtual() instanceof Universidade || l instanceof Universidade){
             return true;
@@ -18,13 +21,11 @@ public class ExplorarService {
         return false;
     }
 
-    public void interacaoAmbiente(Jogador j, Local l, PartidaService ps, Tempo t, Universidade uni, AcademicoService ac, ArrayList<Disciplina> cat, QuestService qs){
+    public boolean interacaoAmbiente(Jogador j, Local l) {
         l.interagir(j);
         l.acaoEspecifica(j);
-        qs.verificarAndamento(j);
-        if (l instanceof PontoDeOnibus) {
-            ps.avancarSemana(j, uni, t, ac, this, cat);
-        }
+        questService.verificarAndamento(j);
+        return l instanceof PontoDeOnibus;
     }
 
     public void interacaoNPC (Jogador j, Personagem npc){
@@ -33,11 +34,37 @@ public class ExplorarService {
         }
     }
 
+    public void atualizarSalas(ArrayList<Disciplina> aprovadas, Universidade uni, ArrayList<Disciplina> grade) {
+        for (Disciplina aprovada : aprovadas) {
+            Disciplina proxima = null;
+            for (Disciplina d : grade) {
+                if (aprovada.equals(d.getPreRequisito())) {
+                    proxima = d;
+                    break;
+                }
+            }
+            if (proxima != null) {
+                for (Local l : uni.getLocais()) {
+                    if (l instanceof Sala s && s.getDisciplinaAtual().equals(aprovada)) {
+                        s.setDisciplinaAtual(proxima);
+                    } else if (l instanceof LEDS le && le.getDisciplinaAtual().equals(aprovada)) {
+                        le.setDisciplinaAtual(proxima);
+                    }
+                }
+            }
+        }
+    }
+
     public void atualizarLocal(Universidade uni) {
         ArrayList<Personagem> ps = uni.getPersonagens();
         ArrayList<Local> lu = uni.getLocais();
 
         for (Personagem p : ps) {
+
+            if (p instanceof Professor) {
+                continue;
+            }
+
             boolean encontrouLocalValido = false;
             while (!encontrouLocalValido) {
                 int indice = (int) (Math.random() * lu.size());

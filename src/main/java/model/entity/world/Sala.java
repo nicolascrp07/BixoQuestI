@@ -20,4 +20,12 @@ public class Sala extends Local {
     public void acaoEspecifica(Jogador j){
         this.assistirAulaTeorica(j);
     }
+
+    public Disciplina getDisciplinaAtual(){
+        return disciplinaAtual;
+    }
+
+    public void setDisciplinaAtual(Disciplina d){
+        this.disciplinaAtual = d;
+    }
 }

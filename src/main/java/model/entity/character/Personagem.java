@@ -28,8 +28,8 @@ public abstract class Personagem {
         return d;
     }
 
-    public Quest getQuest(String n, Personagem o, String obj, Recompensa r, Boolean sc){
-        return new Quest(n, o, obj, r, sc);
+    public String getNome(){
+        return nome;
     }
 
     public abstract boolean podeAcessar(Local local);

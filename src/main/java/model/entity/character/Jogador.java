@@ -48,7 +48,7 @@ public class Jogador {
     }
 
     public void setEnergia(int energia) {
-        this.energia = energia;
+        this.energia = Math.clamp(energia, 0, 100);
     }
 
     public int getNivelConhecimento() {
@@ -56,7 +56,7 @@ public class Jogador {
     }
 
     public void setNivelConhecimento(int nivelConhecimento) {
-        this.nivelConhecimento = nivelConhecimento;
+        this.nivelConhecimento = Math.clamp(nivelConhecimento, 0, 100);
     }
 
     public int getMotivacao() {
@@ -64,7 +64,7 @@ public class Jogador {
     }
 
     public void setMotivacao(int motivacao) {
-        this.motivacao = motivacao;
+        this.motivacao = Math.clamp(motivacao, 0, 100);
     }
 
     public int getSaude() {
@@ -72,7 +72,7 @@ public class Jogador {
     }
 
     public void setSaude(int saude) {
-        this.saude = saude;
+        this.saude = Math.clamp(saude, 0, 100);
     }
 
     public double getDinheiro() {
@@ -80,7 +80,7 @@ public class Jogador {
     }
 
     public void setDinheiro(double dinheiro) {
-        this.dinheiro = dinheiro;
+        this.dinheiro = Math.max(0.0, dinheiro);
     }
 
     public double getDesempenhoAcademico() {
@@ -88,7 +88,7 @@ public class Jogador {
     }
 
     public void setDesempenhoAcademico(double desempenhoAcademico) {
-        this.desempenhoAcademico = desempenhoAcademico;
+        this.desempenhoAcademico = Math.clamp(desempenhoAcademico, 0, 10);
     }
 
     public int getPontosAtividade() {
@@ -96,7 +96,7 @@ public class Jogador {
     }
 
     public void setPontosAtividade(int pontosAtividade) {
-        this.pontosAtividade = pontosAtividade;
+        this.pontosAtividade = Math.clamp(pontosAtividade, 0, 100);
     }
 
     public ArrayList<Disciplina> getDisciplinas() {

@@ -11,9 +11,9 @@ public class Disciplina {
     private double notaFinal;
     private int cargaHoraria;
     private boolean statusAprovacao;
-    private ArrayList<Avaliacao> avaliacoes; // Correção: não precisa do caminho completo
+    private Avaliacao avaliacao;
 
-    public Disciplina(String nome, String area, Professor professor, Disciplina preRequisito, double notaFinal, int cargaHoraria, boolean statusAprovacao){
+    public Disciplina(String nome, String area, Professor professor, Disciplina preRequisito, double notaFinal, int cargaHoraria, boolean statusAprovacao, Avaliacao avaliacao){
         this.nome = nome;
         this.area = area;
         this.professor = professor;
@@ -21,19 +21,11 @@ public class Disciplina {
         this.notaFinal = notaFinal;
         this.cargaHoraria = cargaHoraria;
         this.statusAprovacao = statusAprovacao;
-        this.avaliacoes = new ArrayList<>();
+        this.avaliacao = avaliacao;
     }
 
     public boolean getStatusAprovacao(){
         return statusAprovacao;
-    }
-
-    public void calcularNota() {
-        double soma = 0;
-        for (Avaliacao a : avaliacoes) {
-            soma += a.getNota();
-        }
-        this.notaFinal = soma / avaliacoes.size();
     }
 
     public void verificarAprovacao(){
@@ -44,12 +36,8 @@ public class Disciplina {
         }
     }
 
-    public void limparAvaliacao(){
-        this.avaliacoes.clear();
-    }
-
-    public void addAvaliacao (Avaliacao a){
-        this.avaliacoes.add(a);
+    public void setNotaFinal(double nota){
+        this.notaFinal = nota;
     }
 
     public double getNotaFinal(){
@@ -60,8 +48,16 @@ public class Disciplina {
         return area;
     }
 
+    public String getNome(){
+        return nome;
+    }
+
     public Disciplina getPreRequisito(){
         return preRequisito;
+    }
+
+    public Professor getProfessor(){
+        return professor;
     }
 
 }

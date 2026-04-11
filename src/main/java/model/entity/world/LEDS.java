@@ -20,4 +20,12 @@ public class LEDS extends Local {
     public void acaoEspecifica(Jogador j){
         this.realizarAulaPratica(j);
     }
+
+    public Disciplina getDisciplinaAtual(){
+        return disciplinaAtual;
+    }
+
+    public void setDisciplinaAtual(Disciplina d){
+        this.disciplinaAtual = d;
+    }
 }

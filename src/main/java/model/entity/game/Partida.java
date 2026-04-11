@@ -1,5 +1,6 @@
 package main.java.model.entity.game;
 
+import main.java.model.entity.academic.Disciplina;
 import main.java.model.entity.character.Jogador;
 import main.java.model.entity.world.Universidade;
 import main.java.model.entity.event.Evento;
@@ -10,22 +11,37 @@ public class Partida {
     private Tempo tempo;
     private Universidade universidade;
     private boolean jogoEncerrado;
-    private ArrayList<Evento> eventos; // Limpo!
+    private ArrayList<Evento> eventos;
+    private ArrayList<Disciplina> gradeCompleta;
 
-    public Partida(Jogador jogador, Tempo tempo, Universidade universidade, boolean jogoEncerrado){
+    public Partida(Jogador jogador, Tempo tempo, Universidade universidade, boolean jogoEncerrado,  ArrayList<Evento> eventos, ArrayList<Disciplina> gradeCompleta){
         this.jogador = jogador;
         this.tempo = tempo;
         this.universidade = universidade;
         this.jogoEncerrado = jogoEncerrado;
-        this.eventos = new ArrayList<>();
+        this.eventos = eventos;
+        this.gradeCompleta = gradeCompleta;
     }
 
-    public void aplicarEvento() {
-        for (Evento e : eventos) { // Limpo!
-            if (e.podeOcorrer(tempo, jogador)) {
-                int indice = (int) (Math.random() * e.getEscolhas().size());
-                e.getEscolhas().get(indice).executar(jogador);
-            }
-        }
+    public Jogador getJogador() {
+        return jogador;
+    }
+
+    public Tempo getTempo() {
+        return tempo;
+    }
+
+    public Universidade getUniversidade() {
+        return universidade;
+    }
+
+    public ArrayList<Disciplina> getGradeCompleta() { return gradeCompleta; }
+
+    public boolean isJogoEncerrado() {
+        return jogoEncerrado;
+    }
+
+    public void setJogoEncerrado(boolean jogoEncerrado) {
+        this.jogoEncerrado = jogoEncerrado;
     }
 }

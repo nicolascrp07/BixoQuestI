@@ -4,6 +4,10 @@ import main.java.model.entity.character.Jogador;
 import main.java.model.entity.character.Personagem;
 
 public class QuestAtributo extends Quest {
+    public static final String ENERGIA = "energia";
+    public static final String CONHECIMENTO = "conhecimento";
+    public static final String MOTIVACAO = "motivacao";
+
     private String atributoNecessario;
     private int valorNecessario;
 
@@ -15,7 +19,12 @@ public class QuestAtributo extends Quest {
 
     @Override
     public boolean checarProgresso(Jogador jogador) {
-        return false;
+        return switch (atributoNecessario) {
+            case ENERGIA -> jogador.getEnergia() >= valorNecessario;
+            case CONHECIMENTO -> jogador.getNivelConhecimento() >= valorNecessario;
+            case MOTIVACAO -> jogador.getMotivacao() >= valorNecessario;
+            default -> false;
+        };
     }
 
     public String getAtributoNecessario() { return atributoNecessario; }
