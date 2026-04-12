@@ -23,9 +23,13 @@ public class Greve extends Evento {
     }
 
     @Override
-    public boolean podeOcorrer(Tempo tempo, Jogador jogador) {
-        boolean condicao = tempo.getSemanaAtual() == 1;
+    public boolean condicaoOcorrencia(Tempo tempo) {
+        return tempo.getSemestreAtual() >= 2;
+    }
+
+    @Override
+    public boolean podeOcorrer(Tempo tempo) {
         boolean sorteio = Math.random() < getProbabilidadeOcorrencia();
-        return condicao && sorteio;
+        return this.condicaoOcorrencia(tempo) && sorteio;
     }
 }

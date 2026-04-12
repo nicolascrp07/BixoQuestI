@@ -20,7 +20,7 @@ public class QuestVisita extends Quest {
         return jogador.getLocalAtual().equals(localDestino);
     }
 
-    public Local getNomeLocalDestino() {
+    public Local getLocalDestino() {
         return localDestino;
     }
 }

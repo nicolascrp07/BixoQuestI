@@ -11,7 +11,7 @@ public class Colega extends Personagem {
 
     @Override
     public boolean podeAcessar(Local l){
-        return !(l instanceof Sala) && !(l instanceof LEDS);
+        return true;
     }
 
     private void fofocaAlheia(Jogador jogador) {

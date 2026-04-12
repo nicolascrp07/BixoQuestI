@@ -10,14 +10,16 @@ public class Partida {
     private Jogador jogador;
     private Tempo tempo;
     private Universidade universidade;
+    private Evento eventoAtual;
     private boolean jogoEncerrado;
     private ArrayList<Evento> eventos;
     private ArrayList<Disciplina> gradeCompleta;
 
-    public Partida(Jogador jogador, Tempo tempo, Universidade universidade, boolean jogoEncerrado,  ArrayList<Evento> eventos, ArrayList<Disciplina> gradeCompleta){
+    public Partida(Jogador jogador, Tempo tempo, Universidade universidade, Evento eventoAtual, boolean jogoEncerrado,  ArrayList<Evento> eventos, ArrayList<Disciplina> gradeCompleta){
         this.jogador = jogador;
         this.tempo = tempo;
         this.universidade = universidade;
+        this.eventoAtual = eventoAtual;
         this.jogoEncerrado = jogoEncerrado;
         this.eventos = eventos;
         this.gradeCompleta = gradeCompleta;
@@ -43,5 +45,17 @@ public class Partida {
 
     public void setJogoEncerrado(boolean jogoEncerrado) {
         this.jogoEncerrado = jogoEncerrado;
+    }
+
+    public void setEventoAtual(Evento evento){
+        this.eventoAtual = evento;
+    }
+
+    public Evento getEventoAtual(Evento evento){
+        return eventoAtual;
+    }
+
+    public ArrayList<Evento> getEventos(){
+        return eventos;
     }
 }

@@ -21,8 +21,12 @@ public class ExplorarService {
         return false;
     }
 
-    public boolean interacaoAmbiente(Jogador j, Local l) {
+    public void moverPara(Jogador j, Local l) {
         l.interagir(j);
+        questService.verificarAndamento(j);
+    }
+
+    public boolean executarAcao(Jogador j, Local l) {
         l.acaoEspecifica(j);
         questService.verificarAndamento(j);
         return l instanceof PontoDeOnibus;

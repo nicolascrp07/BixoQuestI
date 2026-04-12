@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class PartidaService {
     private AcademicoService academicoService;
     private ExplorarService explorarService;
+    private EventoService eventoService;
     private ProfessorRepository profRepo;
     private DisciplinaRepository discRepo;
     private UniversidadeRepository uniRepo;
@@ -21,10 +22,11 @@ public class PartidaService {
 
     public static final int TOTAL_DISCIPLINAS = 24;
 
-    public PartidaService(AcademicoService ac, ExplorarService es, ProfessorRepository pr, DisciplinaRepository dr,
+    public PartidaService(AcademicoService ac, ExplorarService es, EventoService ev, ProfessorRepository pr, DisciplinaRepository dr,
                           UniversidadeRepository ur, PartidaRepository par, EventoRepository er) {
         this.academicoService = ac;
         this.explorarService = es;
+        this.eventoService = ev;
         this.profRepo = pr;
         this.discRepo = dr;
         this.uniRepo = ur;
@@ -35,6 +37,7 @@ public class PartidaService {
         int semestreAnterior = p.getTempo().getSemestreAtual();
         p.getTempo().avancarSemana();
         explorarService.atualizarLocal(p.getUniversidade());
+        p.setEventoAtual(eventoService.gerarEvento(p.getEventos(), p.getTempo()));
         if (p.getTempo().getSemestreAtual() > semestreAnterior) {
             ArrayList<Disciplina> aprovadas = academicoService.fecharSemestre(p.getJogador());
             explorarService.atualizarSalas(aprovadas, p.getUniversidade(), p.getGradeCompleta());
@@ -56,11 +59,11 @@ public class PartidaService {
         Universidade uni = uniRepo.buscarPorNome("UEFS");
         ArrayList<Evento> eventos = eventoRepo.buscarTodos();
 
-        Jogador jogador = new Jogador(nomeJogador, 100, 0, 100, 100, 50.0, 0.0, 0, uni);
+        Jogador jogador = new Jogador(nomeJogador, 100, 0, 100, 100, 50.0, 0.0, uni);
         academicoService.matricularNovoSemestre(jogador, grade);
 
         Tempo tempo = new Tempo(1, 1);
-        Partida partida = new Partida(jogador, tempo, uni, false, eventos, grade);
+        Partida partida = new Partida(jogador, tempo, uni, null,false, eventos, grade);
 
         partRepo.salvarPartida(partida);
         return partida;

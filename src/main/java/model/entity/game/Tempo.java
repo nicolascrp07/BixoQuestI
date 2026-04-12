@@ -25,4 +25,12 @@ public class Tempo {
     public int getSemestreAtual() {
         return semestreAtual;
     }
+
+    public void setSemanaAtual(int semanaAtual) {
+        this.semanaAtual = semanaAtual;
+    }
+
+    public void setSemestreAtual(int semestreAtual) {
+        this.semestreAtual = semestreAtual;
+    }
 }

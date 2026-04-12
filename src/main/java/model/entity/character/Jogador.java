@@ -14,13 +14,12 @@ public class Jogador {
     private int saude;
     private double dinheiro;
     private double desempenhoAcademico;
-    private int pontosAtividade;
     private ArrayList<Disciplina> disciplinas;
     private ArrayList<Disciplina> historicoAprovadas;
     private ArrayList<Quest> questsAtivas;
     private Local localAtual;
 
-    public Jogador(String n, int e, int nc, int m, int s, double d, double da, int pa, Local l) {
+    public Jogador(String n, int e, int nc, int m, int s, double d, double da, Local l) {
         this.nome = n;
         this.energia = e;
         this.nivelConhecimento = nc;
@@ -28,7 +27,6 @@ public class Jogador {
         this.saude = s;
         this.dinheiro = d;
         this.desempenhoAcademico = da;
-        this.pontosAtividade = pa;
         this.localAtual = l;
         this.disciplinas = new ArrayList<>();
         this.historicoAprovadas = new ArrayList<>();
@@ -89,14 +87,6 @@ public class Jogador {
 
     public void setDesempenhoAcademico(double desempenhoAcademico) {
         this.desempenhoAcademico = Math.clamp(desempenhoAcademico, 0, 10);
-    }
-
-    public int getPontosAtividade() {
-        return pontosAtividade;
-    }
-
-    public void setPontosAtividade(int pontosAtividade) {
-        this.pontosAtividade = Math.clamp(pontosAtividade, 0, 100);
     }
 
     public ArrayList<Disciplina> getDisciplinas() {

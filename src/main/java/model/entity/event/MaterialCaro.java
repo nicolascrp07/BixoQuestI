@@ -19,7 +19,13 @@ public class MaterialCaro extends Evento {
     }
 
     @Override
-    public boolean podeOcorrer(Tempo tempo, Jogador jogador) {
-        return Math.random() < getProbabilidadeOcorrencia();
+    public boolean condicaoOcorrencia(Tempo tempo) {
+        return true;
+    }
+
+    @Override
+    public boolean podeOcorrer(Tempo tempo) {
+        boolean sorteio = Math.random() < getProbabilidadeOcorrencia();
+        return this.condicaoOcorrencia(tempo) && sorteio;
     }
 }

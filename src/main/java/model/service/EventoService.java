@@ -7,9 +7,9 @@ import main.java.model.entity.game.Tempo;
 import java.util.ArrayList;
 
 public class EventoService {
-    public Evento gerarEvento(ArrayList<Evento> eventosTotais, Tempo tempo, Jogador jogador) {
+    public Evento gerarEvento(ArrayList<Evento> eventosTotais, Tempo tempo) {
         for (Evento e : eventosTotais) {
-            if (e.podeOcorrer(tempo, jogador)) {
+            if (e.podeOcorrer(tempo)) {
                 if (Math.random() <= e.getProbabilidadeOcorrencia()) {
                     return e;
                 }

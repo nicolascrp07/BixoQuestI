@@ -7,12 +7,13 @@ public class Colegiado extends Local {
 
     public Colegiado(String nome, String descricao){
         super(nome, descricao);
+        this.aberto = true;
     }
 
     private void pedirAjudaMaeli(Jogador jogador){
         if (this.aberto) {
             jogador.setEnergia(jogador.getEnergia() + 15);
-            jogador.setMotivacao(jogador.getMotivacao() + 30);
+            jogador.setMotivacao(jogador.getMotivacao() + 20);
             jogador.setNivelConhecimento(jogador.getNivelConhecimento() + 5);
         }
     }

@@ -8,7 +8,7 @@ public abstract class Evento {
     protected String nome;
     protected String descricao;
     protected double probabilidadeOcorrencia;
-    protected ArrayList<Escolha> escolhas; // Limpo
+    protected ArrayList<Escolha> escolhas;
 
     public Evento(String nome, String descricao, double probabilidadeOcorrencia) {
         this.nome = nome;
@@ -25,5 +25,7 @@ public abstract class Evento {
         return escolhas;
     }
 
-    public abstract boolean podeOcorrer(Tempo tempo, Jogador jogador);
+    public abstract boolean condicaoOcorrencia(Tempo tempo);
+
+    public abstract boolean podeOcorrer(Tempo tempo);
 }

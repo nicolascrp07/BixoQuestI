@@ -1,5 +1,6 @@
 package main.java.model.entity.character;
 
+import main.java.model.entity.world.LEDS;
 import main.java.model.entity.world.Local;
 import main.java.model.entity.world.Sala;
 
@@ -10,7 +11,7 @@ public class Professor extends Personagem {
 
     @Override
     public boolean podeAcessar(Local l){
-        return (l instanceof Sala);
+        return (l instanceof Sala) || (l instanceof LEDS);
     }
 
     private void tirarDuvida(Jogador jogador) {
