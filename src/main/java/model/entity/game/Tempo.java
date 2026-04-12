@@ -1,14 +1,18 @@
 package main.java.model.entity.game;
 
+// Tempo dentro da partida
 public class Tempo {
-    private int semanaAtual;
-    private int semestreAtual;
 
+    private int semanaAtual;    // Semana atual do semestre (1 a 4)
+    private int semestreAtual;  // Semestre atual
+
+    // Constrói o tempo
     public Tempo(int semanaAtual, int semestreAtual) {
         this.semanaAtual = semanaAtual;
         this.semestreAtual = semestreAtual;
     }
 
+    // Avança uma semana; ao completar 4 semanas, inicia um novo semestre
     public void avancarSemana() {
         if (semanaAtual < 4) {
             semanaAtual++;
@@ -18,19 +22,15 @@ public class Tempo {
         }
     }
 
-    public int getSemanaAtual() {
-        return semanaAtual;
-    }
+    // Retorna a semana atual
+    public int getSemanaAtual() { return semanaAtual; }
 
-    public int getSemestreAtual() {
-        return semestreAtual;
-    }
+    // Retorna o semestre atual
+    public int getSemestreAtual() { return semestreAtual; }
 
-    public void setSemanaAtual(int semanaAtual) {
-        this.semanaAtual = semanaAtual;
-    }
+    // Atualiza a semana atual
+    public void setSemanaAtual(int semanaAtual) { this.semanaAtual = semanaAtual; }
 
-    public void setSemestreAtual(int semestreAtual) {
-        this.semestreAtual = semestreAtual;
-    }
+    // Atualiza o semestre atual
+    public void setSemestreAtual(int semestreAtual) { this.semestreAtual = semestreAtual; }
 }

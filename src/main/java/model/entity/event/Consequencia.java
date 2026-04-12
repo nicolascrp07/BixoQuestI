@@ -2,14 +2,17 @@ package main.java.model.entity.event;
 
 import main.java.model.entity.character.Jogador;
 
+// Efeitos que uma escolha causa sobre os atributos do jogador
 public class Consequencia {
-    private int efeitoEnergia;
-    private int efeitoMotivacao;
-    private double efeitoDinheiro;
-    private int efeitoConhecimento;
-    private int efeitoSaude;
-    private int efeitoAcademico;
 
+    private int efeitoEnergia;          // Efeito na energia do jogador
+    private int efeitoMotivacao;        // Efeito na motivação do jogador
+    private double efeitoDinheiro;      // Efeito no saldo do jogador
+    private int efeitoConhecimento;     // Efeito no nível de conhecimento do jogador
+    private int efeitoSaude;            // Efeito na saúde do jogador
+    private int efeitoAcademico;        // Efeito no desempenho acadêmico do jogador
+
+    // Constrói a consequência
     public Consequencia(int efeitoEnergia, int efeitoMotivacao, double efeitoDinheiro,
                         int efeitoConhecimento, int efeitoSaude, int efeitoAcademico) {
         this.efeitoEnergia = efeitoEnergia;
@@ -20,6 +23,7 @@ public class Consequencia {
         this.efeitoAcademico = efeitoAcademico;
     }
 
+    // Aplica todos os efeitos desta consequência sobre o jogador
     public void aplicar(Jogador jogador) {
         jogador.setEnergia(jogador.getEnergia() + efeitoEnergia);
         jogador.setMotivacao(jogador.getMotivacao() + efeitoMotivacao);

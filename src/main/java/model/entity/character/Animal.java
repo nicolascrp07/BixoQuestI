@@ -4,22 +4,28 @@ import main.java.model.entity.world.LEDS;
 import main.java.model.entity.world.Local;
 import main.java.model.entity.world.Sala;
 
+// Animal presente no mundo do jogo
 public class Animal extends Personagem {
-    public Animal (String nome, Local local){
+
+    // Constrói o animal
+    public Animal(String nome, Local local) {
         super(nome, local);
     }
 
+    // Animais não podem acessar salas de aula nem o LEDS
     @Override
-    public boolean podeAcessar(Local l){
+    public boolean podeAcessar(Local l) {
         return !(l instanceof Sala) && !(l instanceof LEDS);
     }
 
-    private void fazerCarinho(Jogador jogador) {
+    // Aumenta a motivação do jogador ao fazer carinho no animal
+    private void receberCarinho(Jogador jogador) {
         jogador.setMotivacao(jogador.getMotivacao() + 10);
     }
 
+    // A interação específica do animal é receber carinho do jogador
     @Override
     public void interacaoEspecifica(Jogador jogador) {
-        this.fazerCarinho(jogador);
+        this.receberCarinho(jogador);
     }
 }

@@ -3,29 +3,36 @@ package main.java.model.entity.academic;
 import main.java.model.entity.event.Consequencia;
 import main.java.model.entity.character.Jogador;
 
+// Avaliação acadêmica do jogo, com nome, dificuldade e nota
 public class Avaliacao {
-    private String nome;
-    private int dificuldade;
-    private double nota;
 
-    public Avaliacao(String nome, int dificuldade, double nota){
+    private String nome;        // Nome da avaliação
+    private int dificuldade;    // Grau de dificuldade
+    private double nota;        // Nota registrada na avaliação
+
+    // Constrói a avaliação
+    public Avaliacao(String nome, int dificuldade, double nota) {
         this.nome = nome;
         this.dificuldade = dificuldade;
         this.nota = nota;
     }
 
-    public double getNota(){
+    // Retorna a nota atual
+    public double getNota() {
         return nota;
     }
 
-    public int getDificuldade(){
+    // Retorna o grau de dificuldade
+    public int getDificuldade() {
         return dificuldade;
     }
 
+    // Atualiza a nota com o resultado obtido no minigame
     public void setNota(double notaDoMinigame) {
         this.nota = notaDoMinigame;
     }
 
+    // Atualiza o grau de dificuldade
     public void setDificuldade(int dificuldade) {
         this.dificuldade = dificuldade;
     }

@@ -10,7 +10,9 @@ import main.java.model.repository.*;
 
 import java.util.ArrayList;
 
+// Service central da partida, responsável pelo fluxo principal do jogo
 public class PartidaService {
+
     private AcademicoService academicoService;
     private ExplorarService explorarService;
     private EventoService eventoService;
@@ -20,24 +22,29 @@ public class PartidaService {
     private PartidaRepository partRepo;
     private EventoRepository eventoRepo;
 
+    // Total de disciplinas necessárias para vencer o jogo
     public static final int TOTAL_DISCIPLINAS = 24;
 
-    public PartidaService(AcademicoService ac, ExplorarService es, EventoService ev, ProfessorRepository pr, DisciplinaRepository dr,
-                          UniversidadeRepository ur, PartidaRepository par, EventoRepository er) {
+    // Constrói o service
+    public PartidaService(AcademicoService ac, ExplorarService es, EventoService ev, ProfessorRepository pr,
+                          DisciplinaRepository dr, UniversidadeRepository ur, PartidaRepository par, EventoRepository er) {
         this.academicoService = ac;
-        this.explorarService = es;
-        this.eventoService = ev;
-        this.profRepo = pr;
-        this.discRepo = dr;
-        this.uniRepo = ur;
-        this.partRepo = par;
-        this.eventoRepo = er;
+        this.explorarService  = es;
+        this.eventoService    = ev;
+        this.profRepo         = pr;
+        this.discRepo         = dr;
+        this.uniRepo          = ur;
+        this.partRepo         = par;
+        this.eventoRepo       = er;
     }
-    public void avancarSemana(Partida p){
+
+    // Avança uma semana, reposiciona personagens, gera evento e, se virar semestre, fecha e rematricula
+    public void avancarSemana(Partida p) {
         int semestreAnterior = p.getTempo().getSemestreAtual();
         p.getTempo().avancarSemana();
         explorarService.atualizarLocal(p.getUniversidade());
         p.setEventoAtual(eventoService.gerarEvento(p.getEventos(), p.getTempo()));
+
         if (p.getTempo().getSemestreAtual() > semestreAnterior) {
             ArrayList<Disciplina> aprovadas = academicoService.fecharSemestre(p.getJogador());
             explorarService.atualizarSalas(aprovadas, p.getUniversidade(), p.getGradeCompleta());
@@ -45,31 +52,35 @@ public class PartidaService {
         }
     }
 
-    public boolean verificarFimDeJogo(Jogador j){
+    // Retorna true se o jogador concluiu todas as disciplinas da grade
+    public boolean verificarFimDeJogo(Jogador j) {
         return j.getHistoricoAprovadas().size() == TOTAL_DISCIPLINAS;
     }
 
+    // Inicializa todos os dados do jogo e retorna uma nova partida
     public Partida iniciarJogo(String nomeJogador) {
         profRepo.criarProfessores();
         discRepo.criarGrade(profRepo.buscarTodos());
         uniRepo.criarMundo(discRepo.buscarTodas());
         eventoRepo.criarEventosPadrao();
 
-        ArrayList<Disciplina> grade = discRepo.buscarTodas();
-        Universidade uni = uniRepo.buscarPorNome("UEFS");
-        ArrayList<Evento> eventos = eventoRepo.buscarTodos();
+        ArrayList<Disciplina> grade   = discRepo.buscarTodas();
+        Universidade uni              = uniRepo.buscarPorNome("UEFS");
+        ArrayList<Evento> eventos     = eventoRepo.buscarTodos();
 
+        // Cria o jogador com os atributos iniciais e o posiciona na universidade
         Jogador jogador = new Jogador(nomeJogador, 100, 0, 100, 100, 50.0, 0.0, uni);
         academicoService.matricularNovoSemestre(jogador, grade);
 
-        Tempo tempo = new Tempo(1, 1);
-        Partida partida = new Partida(jogador, tempo, uni, null,false, eventos, grade);
+        Tempo tempo     = new Tempo(1, 1);
+        Partida partida = new Partida(jogador, tempo, uni, null, false, eventos, grade);
 
         partRepo.salvarPartida(partida);
         return partida;
     }
 
-    public boolean verificarGameOver(Jogador j){
+    // Retorna true se o jogador ficou sem saúde ou sem motivação
+    public boolean verificarGameOver(Jogador j) {
         return j.getSaude() == 0 || j.getMotivacao() == 0;
     }
 }

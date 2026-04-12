@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
+// Testa o service de explorar e as suas regras de negócio
 public class ExplorarServiceTeste {
     private ExplorarService explorarService;
     private AcademicoService academicoService;
@@ -40,6 +41,7 @@ public class ExplorarServiceTeste {
     private Disciplina dHw2;
     private ArrayList<Disciplina> grade;
 
+    // Constrói o sistema de teste dos locais e dos npcs antes de cada teste
     @Before
     public void setUp() {
         Avaliacao av = new Avaliacao("Av", 0, 0.0);
@@ -94,6 +96,7 @@ public class ExplorarServiceTeste {
         explorarService = new ExplorarService(academicoService, qs);
     }
 
+    // Confirma que o jogador pode transitar entre locais adjacentes
     @Test
     public void jogadorPodeTransitar(){
         assertTrue(explorarService.podeTransitar(jogador, universidade));
@@ -103,12 +106,14 @@ public class ExplorarServiceTeste {
         assertTrue(explorarService.podeTransitar(jogador, universidade));
     }
 
+    // Confirma que o jogador não pode transitar diretamente entre dois locais sem passar pela universidade
     @Test
     public void jogadorNaoPodeTransitar(){
         jogador.setLocalAtual(salaAlgoritmos);
         assertFalse(explorarService.podeTransitar(jogador, leds));
     }
 
+    // Interação com a cantina e efeitos nos atributos do jogador
     @Test
     public void interacaoCantina(){
         explorarService.moverPara(jogador, cantina);
@@ -117,6 +122,7 @@ public class ExplorarServiceTeste {
         assertEquals(65, jogador.getMotivacao());
     }
 
+    // Interação com salas de aula e efeitos nos atributos do jogador
     @Test
     public void interacaoSalas(){
         explorarService.moverPara(jogador, salaAlgoritmos);
@@ -131,6 +137,7 @@ public class ExplorarServiceTeste {
         assertEquals(70, jogador.getNivelConhecimento());
     }
 
+    // Interação com o LEDS e efeitos nos atributos do jogador
     @Test
     public void interacaoLEDS() {
         explorarService.moverPara(jogador, leds);
@@ -139,6 +146,7 @@ public class ExplorarServiceTeste {
         assertEquals(60, jogador.getNivelConhecimento());
     }
 
+    // Interação com o colegiado e efeitos nos atributos do jogador
     @Test
     public void interacaoColegiado(){
         explorarService.moverPara(jogador, colegiado);
@@ -148,6 +156,7 @@ public class ExplorarServiceTeste {
         assertEquals(55, jogador.getNivelConhecimento());
     }
 
+    // Interação com o ponto de ônibus e efeitos nos atributos do jogador
     @Test
     public void interacaoPontodeOnibus(){
         explorarService.moverPara(jogador, pontoDeOnibus);
@@ -155,12 +164,14 @@ public class ExplorarServiceTeste {
         assertEquals(100, jogador.getEnergia());
     }
 
+    // Confirma que a interação com o ponto de ônibus sinaliza ao controller para avançar a semana
     @Test
     public void gatilhoAvancarSemanaController(){
         explorarService.moverPara(jogador, pontoDeOnibus);
         assertTrue(explorarService.executarAcao(jogador, jogador.getLocalAtual()));
     }
 
+    // Interação com animais e efeitos nos atributos do jogador
     @Test
     public void interacaoAnimais(){
         explorarService.moverPara(jogador, cantina);
@@ -174,6 +185,7 @@ public class ExplorarServiceTeste {
         assertEquals(90, jogador.getEnergia());
     }
 
+    // Interação com colegas e efeitos nos atributos do jogador
     @Test
     public void interacaoColegas(){
         explorarService.moverPara(jogador, pontoDeOnibus);
@@ -187,6 +199,7 @@ public class ExplorarServiceTeste {
         assertEquals(90, jogador.getEnergia());
     }
 
+    // Interação com professor na sala e efeitos nos atributos do jogador
     @Test
     public void interacaoProfessor(){
         explorarService.moverPara(jogador, salaAlgoritmos);
@@ -194,6 +207,7 @@ public class ExplorarServiceTeste {
         assertEquals(60, jogador.getNivelConhecimento());
     }
 
+    // Interação com NPC fora do local dele não produz efeito nos atributos do jogador
     @Test
     public void interacaoNPCForaDoLocal(){
         explorarService.moverPara(jogador, salaExatas);
@@ -201,6 +215,7 @@ public class ExplorarServiceTeste {
         assertNotEquals(60, jogador.getMotivacao());
     }
 
+    // Aprovação em Algoritmos atualiza a disciplina da sala de algoritmos
     @Test
     public void atualizarMateriaSalaAlgoritmos() {
         dAlg1.setNotaFinal(10.0);
@@ -214,6 +229,7 @@ public class ExplorarServiceTeste {
         assertEquals(dAlg2, salaAlgoritmos.getDisciplinaAtual());
     }
 
+    // Aprovação em Exatas atualiza a disciplina da sala de exatas
     @Test
     public void atualizarMateriaSalaExatas() {
         dExt1.setNotaFinal(10.0);
@@ -227,6 +243,7 @@ public class ExplorarServiceTeste {
         assertEquals(dExt2, salaExatas.getDisciplinaAtual());
     }
 
+    // Aprovação em Hardware atualiza a disciplina do LEDS
     @Test
     public void atualizarMateriaLEDS() {
         dHw1.setNotaFinal(10.0);
@@ -240,6 +257,7 @@ public class ExplorarServiceTeste {
         assertEquals(dHw2, leds.getDisciplinaAtual());
     }
 
+    // Reprovação mantém a disciplina atual
     @Test
     public void disciplinaReprovadaPermanece(){
         dHw1.setNotaFinal(3.0);
@@ -253,6 +271,7 @@ public class ExplorarServiceTeste {
         assertEquals(dHw1, leds.getDisciplinaAtual());
     }
 
+    // Após 100 redistribuições, confirma que cada NPC está sempre em um local que pode acessar e que professores permanecem fixos nas suas salas
     @Test
     public void validadeDistribuicaoNPCS() {
         for (int i = 0; i < 100; i++){

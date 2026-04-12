@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+// Testa o service das quests
 public class QuestServiceTeste {
     QuestService questService;
     QuestAtributo questAtributo;
@@ -19,6 +20,7 @@ public class QuestServiceTeste {
     Jogador jogador;
     Recompensa recompensa;
 
+    // Constrói o sistema de teste das quests antes de cada teste
     @Before
     public void setUp(){
         questService = new QuestService();
@@ -28,6 +30,7 @@ public class QuestServiceTeste {
         jogador = new Jogador("Nicolas", 100, 50, 50, 100, 50.0, 0.0, new Universidade("UEFS", "Universidade"));
     }
 
+    // Confirma que duas quests distintas são adicionadas corretamente a lista de quests ativas
     @Test
     public void adicionarNovasQuests() {
         questService.aceitarQuest(jogador, questVisita);
@@ -36,6 +39,7 @@ public class QuestServiceTeste {
         assertTrue(jogador.getQuestsAtivas().contains(questAtributo));
     }
 
+    // Confirma que a mesma quest não é adicionada duas vezes à lista de questsAtivas
     @Test
     public void naoDuplicarQuests(){
         questService.aceitarQuest(jogador, questVisita);
@@ -43,6 +47,7 @@ public class QuestServiceTeste {
         assertEquals(1, jogador.getQuestsAtivas().size());
     }
 
+    // Confirma que a QuestAtributo não é marcada como concluída quando o critério não foi atingido
     @Test
     public void questAtributoNaoConcluida() {
         questService.aceitarQuest(jogador, questAtributo);
@@ -50,6 +55,7 @@ public class QuestServiceTeste {
         assertFalse(questAtributo.isStatusConcluida());
     }
 
+    // Confirma que a QuestAtributo é marcada como concluída quando o nível de conhecimento atinge o valor exigido
     @Test
     public void questAtributoConcluida() {
         jogador.setNivelConhecimento(65);
@@ -58,6 +64,7 @@ public class QuestServiceTeste {
         assertTrue(questAtributo.isStatusConcluida());
     }
 
+    // Confirma que a QuestVisita não é marcada como concluída quando o jogador ainda não visitou o local
     @Test
     public void questVisitaNaoConcluida() {
         questService.aceitarQuest(jogador, questVisita);
@@ -65,6 +72,7 @@ public class QuestServiceTeste {
         assertFalse(questVisita.isStatusConcluida());
     }
 
+    // Confirma que a QuestVisita é marcada como concluída quando o jogador está no local
     @Test
     public void questVisitaConcluida() {
         jogador.setLocalAtual(questVisita.getLocalDestino());
@@ -73,6 +81,7 @@ public class QuestServiceTeste {
         assertTrue(questVisita.isStatusConcluida());
     }
 
+    // Ao entregar uma quest concluída, aplica a recompensa nos atributos e remove a quest da lista ativa
     @Test
     public void aplicarQuestConcluida() {
         jogador.setNivelConhecimento(65);
@@ -85,6 +94,7 @@ public class QuestServiceTeste {
         assertEquals(0, jogador.getQuestsAtivas().size());
     }
 
+    // Tentar entregar uma quest não concluída não aplica recompensa e mantém a quest na lista ativa
     @Test
     public void aplicarQuestNaoConcluida() {
         questService.aceitarQuest(jogador, questAtributo);

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
+// Testa o service de partida e suas regras de negócio
 public class PartidaServiceTeste {
     private AcademicoService academicoService;
     private ExplorarService explorarService;
@@ -22,10 +23,12 @@ public class PartidaServiceTeste {
     private Jogador jogador;
     private Partida partida;
 
+    // Constrói o sistema de teste da partida antes de cada teste
     @Before
     public void setUp() {
         academicoService = new AcademicoService();
         questService = new QuestService();
+        eventoService = new EventoService();
         explorarService = new ExplorarService(academicoService, questService);
         partidaService = new PartidaService(academicoService, explorarService, eventoService, null, null, null, null, null);
 
@@ -35,6 +38,7 @@ public class PartidaServiceTeste {
         partida = new Partida(jogador, tempo, uni, null, false, new ArrayList<>(), new ArrayList<>());
     }
 
+    // Confirma que o jogo não termina com menos de 24 disciplinas aprovadas
     @Test
     public void jogoNaoTerminouPoucasAprovadas() {
         ArrayList<Disciplina> aprovadas = new ArrayList<>();
@@ -46,6 +50,7 @@ public class PartidaServiceTeste {
         assertFalse(partidaService.verificarFimDeJogo(jogador));
     }
 
+    // Confirma que o jogo termina ao atingir 24 disciplinas aprovadas
     @Test
     public void jogoTerminouTodasAprovadas() {
         ArrayList<Disciplina> aprovadas = new ArrayList<>();
@@ -57,23 +62,27 @@ public class PartidaServiceTeste {
         assertTrue(partidaService.verificarFimDeJogo(jogador));
     }
 
+    // Confirma game over quando a saúde do jogador chega a zero
     @Test
     public void gameOverPorSaude() {
         jogador.setSaude(0);
         assertTrue(partidaService.verificarGameOver(jogador));
     }
 
+    // Confirma game over quando a motivação do jogador chega a zero
     @Test
     public void gameOverPorMotivacao() {
         jogador.setMotivacao(0);
         assertTrue(partidaService.verificarGameOver(jogador));
     }
 
+    // Confirma que não há game over com atributos normais
     @Test
     public void semGameOver() {
         assertFalse(partidaService.verificarGameOver(jogador));
     }
 
+    // Avançar semana dentro do mesmo semestre incrementa apenas a semana atual
     @Test
     public void avancarSemanaNoMesmoSemestre() {
         int semestreAntes = partida.getTempo().getSemestreAtual();
@@ -82,6 +91,7 @@ public class PartidaServiceTeste {
         assertEquals(2, partida.getTempo().getSemanaAtual());
     }
 
+    // Avançar semana ao final do semestre fecha o semestre, migra aprovadas e reinicia a semana
     @Test
     public void avancarSemanaComMudancaDeSemestre() {
         Disciplina disp = new Disciplina("DispTeste", AcademicoService.ALGORITMOS, null, null, 10.0, 60, false, null);

@@ -1,19 +1,22 @@
 package main.java.model.entity.academic;
 
 import main.java.model.entity.character.Professor;
-import java.util.ArrayList;
+import java.util.ArrayList; // import não utilizado, pode ser removido
 
+// Disciplina cursada pelo jogador
 public class Disciplina {
-    private String nome;
-    private String area;
-    private Professor professor;
-    private Disciplina preRequisito;
-    private double notaFinal;
-    private int cargaHoraria;
-    private boolean statusAprovacao;
-    private Avaliacao avaliacao;
 
-    public Disciplina(String nome, String area, Professor professor, Disciplina preRequisito, double notaFinal, int cargaHoraria, boolean statusAprovacao, Avaliacao avaliacao){
+    private String nome;                // Nome da disciplina
+    private String area;                // Área do conhecimento
+    private Professor professor;        // Professor responsável pela disciplina
+    private Disciplina preRequisito;    // Disciplina que deve ser concluída antes desta
+    private double notaFinal;           // Nota final obtida
+    private int cargaHoraria;           // Carga horária total
+    private boolean statusAprovacao;    // Indica se o jogador foi aprovado
+    private Avaliacao avaliacao;        // Avaliação vinculada
+
+    // Constrói a disciplina
+    public Disciplina(String nome, String area, Professor professor, Disciplina preRequisito, double notaFinal, int cargaHoraria, boolean statusAprovacao, Avaliacao avaliacao) {
         this.nome = nome;
         this.area = area;
         this.professor = professor;
@@ -24,40 +27,47 @@ public class Disciplina {
         this.avaliacao = avaliacao;
     }
 
-    public boolean getStatusAprovacao(){
+    // Retorna se o jogador foi aprovado na disciplina
+    public boolean getStatusAprovacao() {
         return statusAprovacao;
     }
 
-    public void verificarAprovacao(){
-        if (notaFinal < 7){
+    // Aprova o jogador se a nota final for 7 ou mais / Reprova caso contrário
+    public void verificarAprovacao() {
+        if (notaFinal < 7) {
             this.statusAprovacao = false;
         } else {
             this.statusAprovacao = true;
         }
     }
 
-    public void setNotaFinal(double nota){
+    // Atualiza a nota final
+    public void setNotaFinal(double nota) {
         this.notaFinal = nota;
     }
 
-    public double getNotaFinal(){
+    // Retorna a nota final
+    public double getNotaFinal() {
         return notaFinal;
     }
 
-    public String getArea(){
+    // Retorna a área do conhecimento da disciplina
+    public String getArea() {
         return area;
     }
 
-    public String getNome(){
+    // Retorna o nome da disciplina
+    public String getNome() {
         return nome;
     }
 
-    public Disciplina getPreRequisito(){
+    // Retorna o pré-requisito exigido desta disciplina
+    public Disciplina getPreRequisito() {
         return preRequisito;
     }
 
-    public Professor getProfessor(){
+    // Retorna o professor da disciplina
+    public Professor getProfessor() {
         return professor;
     }
-
 }

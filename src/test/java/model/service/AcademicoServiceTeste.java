@@ -1,4 +1,4 @@
-package java.model.service;
+package test.java.model.service;
 
 import main.java.model.entity.academic.Avaliacao;
 import main.java.model.entity.academic.Disciplina;
@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
+// Testa o service acadêmico do jogo
 public class AcademicoServiceTeste {
 
     private AcademicoService academicoService;
@@ -18,6 +19,7 @@ public class AcademicoServiceTeste {
     private Disciplina disciplina;
     private Avaliacao avaliacao;
 
+    // Constrói o sistema de teste acadêmico antes de cada teste
     @Before
     public void setUp() {
         academicoService = new AcademicoService();
@@ -26,6 +28,7 @@ public class AcademicoServiceTeste {
         disciplina = new Disciplina("Teste", AcademicoService.ALGORITMOS, null, null, 0.0, 60, false, avaliacao);
     }
 
+    // Nível de conhecimento baixo (30) resulta em dificuldade 3.
     @Test
     public void dificuldadeAlta() {
         jogador.setNivelConhecimento(30);
@@ -33,6 +36,7 @@ public class AcademicoServiceTeste {
         assertEquals(3, avaliacao.getDificuldade());
     }
 
+    // Nível de conhecimento médio (60) resulta em dificuldade 2.
     @Test
     public void dificuldadeMedia() {
         jogador.setNivelConhecimento(60);
@@ -40,6 +44,7 @@ public class AcademicoServiceTeste {
         assertEquals(2, avaliacao.getDificuldade());
     }
 
+    // Nível de conhecimento alto (90) resulta em dificuldade 1.
     @Test
     public void dificuldadeBaixa() {
         jogador.setNivelConhecimento(90);
@@ -47,6 +52,7 @@ public class AcademicoServiceTeste {
         assertEquals(1, avaliacao.getDificuldade());
     }
 
+    // Prova com dificuldade alta e suas penalidades
     @Test
     public void impactoDificuldadeAlta() {
         jogador.setNivelConhecimento(20);
@@ -56,6 +62,7 @@ public class AcademicoServiceTeste {
         assertEquals(85, jogador.getSaude());
     }
 
+    // Prova com dificuldade média e suas penalidades
     @Test
     public void impactoDificuldadeMedia() {
         jogador.setNivelConhecimento(50);
@@ -65,6 +72,7 @@ public class AcademicoServiceTeste {
         assertEquals(95, jogador.getSaude());
     }
 
+    // Prova com dificuldade baixa e suas penalidades
     @Test
     public void impactoDificuldadeBaixa() {
         jogador.setNivelConhecimento(80);
@@ -75,6 +83,7 @@ public class AcademicoServiceTeste {
         assertEquals(10, jogador.getNivelConhecimento() - 80);
     }
 
+    // Nota suficiente (8.0) resulta em aprovação na disciplina
     @Test
     public void aprovacaoComNotaSuficiente() {
         academicoService.aplicarProva(jogador, disciplina, avaliacao, 8.0);
@@ -82,6 +91,7 @@ public class AcademicoServiceTeste {
         assertTrue(disciplina.getStatusAprovacao());
     }
 
+    // Nota insuficiente (5.0) resulta em reprovação na disciplina
     @Test
     public void aprovacaoComNotaInsuficiente() {
         academicoService.aplicarProva(jogador, disciplina, avaliacao, 5.0);
@@ -89,6 +99,7 @@ public class AcademicoServiceTeste {
         assertFalse(disciplina.getStatusAprovacao());
     }
 
+    // Fecha semestre com todas aprovadas e confirma que migraram para o histórico, esvaziando a lista de disciplinas
     @Test
     public void todasAprovadas() {
         Disciplina disciplina1 = new Disciplina("Teste1", AcademicoService.EXATAS, null, null, 0.0, 60, false, avaliacao);
@@ -114,6 +125,7 @@ public class AcademicoServiceTeste {
         assertEquals(disciplina2, jogador.getHistoricoAprovadas().get(2));
     }
 
+    // Fecha semestre com todas reprovadas e confirma que permanecem na lista de disciplinas
     @Test
     public void todasReprovadas() {
         Disciplina disciplina1 = new Disciplina("Teste1", AcademicoService.EXATAS, null, null, 0.0, 60, false, avaliacao);
@@ -136,6 +148,7 @@ public class AcademicoServiceTeste {
         assertEquals(disciplina2, jogador.getDisciplinas().get(2));
     }
 
+    // Fecha semestre com aprovação parcial e verifica a separação correta entre aprovadas e reprovadas
     @Test
     public void umaAprovada() {
         Disciplina disciplina1 = new Disciplina("Teste1", AcademicoService.EXATAS, null, null, 0.0, 60, false, avaliacao);
@@ -159,6 +172,7 @@ public class AcademicoServiceTeste {
         assertEquals(disciplina2, jogador.getDisciplinas().get(1));
     }
 
+    // Score calculado após aprovação em três disciplinas com nota máxima
     @Test
     public void scoreComTresAprovadas() {
         Disciplina disciplina1 = new Disciplina("Teste1", AcademicoService.EXATAS, null, null, 0.0, 60, false, avaliacao);
@@ -181,6 +195,7 @@ public class AcademicoServiceTeste {
         assertEquals(10.0, jogador.getDesempenhoAcademico(), 0.0001);
     }
 
+    // Score calculado sem nenhuma aprovação deve resultar em 0.0.
     @Test
     public void scoreComNenhumaAprovada() {
         Disciplina disciplina1 = new Disciplina("Teste1", AcademicoService.EXATAS, null, null, 0.0, 60, false, avaliacao);
@@ -200,6 +215,7 @@ public class AcademicoServiceTeste {
         assertEquals(0.0, jogador.getDesempenhoAcademico(), 0.0001);
     }
 
+    // Score calculado ao longo de dois semestres com notas variadas
     @Test
     public void scoreComSeisAprovadas() {
         Disciplina disciplina1 = new Disciplina("Teste1", AcademicoService.EXATAS, null, null, 8.0, 60, false, avaliacao);
@@ -232,6 +248,7 @@ public class AcademicoServiceTeste {
         assertEquals(9.0, jogador.getDesempenhoAcademico(), 0.0001);
     }
 
+    // Com todas aprovadas, matricula o jogador nas três disciplinas subsequentes do catalogo
     @Test
     public void matriculaComTodasAprovadas() {
         Disciplina alg1 = new Disciplina("Alg1", AcademicoService.ALGORITMOS, null, null, 10.0, 60, false, avaliacao);
@@ -264,6 +281,7 @@ public class AcademicoServiceTeste {
         assertEquals(3, jogador.getHistoricoAprovadas().size());
     }
 
+    // Aprovação apenas em Algoritmos matricula na sequência de Algoritmos e mantém as demais reprovadas
     @Test
     public void matriculaAlgoritmosAprovado() {
         Disciplina alg1 = new Disciplina("Alg1", AcademicoService.ALGORITMOS, null, null, 10.0, 60, false, avaliacao);
@@ -296,6 +314,7 @@ public class AcademicoServiceTeste {
         assertEquals(1, jogador.getHistoricoAprovadas().size());
     }
 
+    // Aprovação apenas em Exatas matricula na sequência de Exatas e mantém as demais reprovadas
     @Test
     public void matriculaExatasAprovado() {
         Disciplina alg1 = new Disciplina("Alg1", AcademicoService.ALGORITMOS, null, null, 00.0, 60, false, avaliacao);
@@ -328,6 +347,7 @@ public class AcademicoServiceTeste {
         assertEquals(1, jogador.getHistoricoAprovadas().size());
     }
 
+    // Aprovação apenas em Hardware matricula na sequência de Hardware e mantém as demais reprovadas
     @Test
     public void matriculaHardwareAprovado() {
         Disciplina alg1 = new Disciplina("Alg1", AcademicoService.ALGORITMOS, null, null, 00.0, 60, false, avaliacao);

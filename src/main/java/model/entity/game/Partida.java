@@ -6,16 +6,19 @@ import main.java.model.entity.world.Universidade;
 import main.java.model.entity.event.Evento;
 import java.util.ArrayList;
 
+// Partida em andamento
 public class Partida {
-    private Jogador jogador;
-    private Tempo tempo;
-    private Universidade universidade;
-    private Evento eventoAtual;
-    private boolean jogoEncerrado;
-    private ArrayList<Evento> eventos;
-    private ArrayList<Disciplina> gradeCompleta;
 
-    public Partida(Jogador jogador, Tempo tempo, Universidade universidade, Evento eventoAtual, boolean jogoEncerrado,  ArrayList<Evento> eventos, ArrayList<Disciplina> gradeCompleta){
+    private Jogador jogador;                    // Jogador da partida
+    private Tempo tempo;                        // Tempo da partida
+    private Universidade universidade;          // Universidade da partida
+    private Evento eventoAtual;                 // Evento que está ocorrendo no momento
+    private boolean jogoEncerrado;              // Indica se a partida chegou ao fim
+    private ArrayList<Evento> eventos;          // Lista de todos os eventos disponíveis na partida
+    private ArrayList<Disciplina> gradeCompleta; // Grade curricular completa do curso
+
+    // Constrói a partida
+    public Partida(Jogador jogador, Tempo tempo, Universidade universidade, Evento eventoAtual, boolean jogoEncerrado, ArrayList<Evento> eventos, ArrayList<Disciplina> gradeCompleta) {
         this.jogador = jogador;
         this.tempo = tempo;
         this.universidade = universidade;
@@ -25,37 +28,30 @@ public class Partida {
         this.gradeCompleta = gradeCompleta;
     }
 
-    public Jogador getJogador() {
-        return jogador;
-    }
+    // Retorna o jogador
+    public Jogador getJogador() { return jogador; }
 
-    public Tempo getTempo() {
-        return tempo;
-    }
+    // Retorna o tempo
+    public Tempo getTempo() { return tempo; }
 
-    public Universidade getUniversidade() {
-        return universidade;
-    }
+    // Retorna a universidade
+    public Universidade getUniversidade() { return universidade; }
 
+    // Retorna a grade
     public ArrayList<Disciplina> getGradeCompleta() { return gradeCompleta; }
 
-    public boolean isJogoEncerrado() {
-        return jogoEncerrado;
-    }
+    // Retorna se a partida foi encerrada
+    public boolean isJogoEncerrado() { return jogoEncerrado; }
 
-    public void setJogoEncerrado(boolean jogoEncerrado) {
-        this.jogoEncerrado = jogoEncerrado;
-    }
+    // Encerra a partida
+    public void setJogoEncerrado(boolean jogoEncerrado) { this.jogoEncerrado = jogoEncerrado; }
 
-    public void setEventoAtual(Evento evento){
-        this.eventoAtual = evento;
-    }
+    // Atualiza o evento que está ocorrendo no momento
+    public void setEventoAtual(Evento evento) { this.eventoAtual = evento; }
 
-    public Evento getEventoAtual(Evento evento){
-        return eventoAtual;
-    }
+    // Retorna o evento que está ocorrendo no momento
+    public Evento getEventoAtual() { return eventoAtual; }
 
-    public ArrayList<Evento> getEventos(){
-        return eventos;
-    }
+    // Retorna todos os eventos
+    public ArrayList<Evento> getEventos() { return eventos; }
 }
